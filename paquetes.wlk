@@ -6,6 +6,11 @@ object paquete {
 
     var mensajero = neo
 
+    method estaPago(){
+
+        return estaPago
+    }
+
     method mensajero(nuevoMensajero){
 
         mensajero = nuevoMensajero

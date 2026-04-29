@@ -1,0 +1,68 @@
+import vehiculos.*
+import empresa.*
+import mensajeros.*
+import paquetes.*
+import destinos.*
+
+
+
+
+
+describe "tests parte 2"{
+
+    test "contratar a Neo"{
+
+        empresaDeMensajeria.contratarEmpleado(neo)
+
+        assert.equals([neo], empresaDeMensajeria.listaDeMensajeros())
+    }
+
+    test "contratar a neo y chuck. Luego despedir a Neo, me tiene que quedar solo chuck"{
+
+        empresaDeMensajeria.contratarEmpleado(neo)
+        empresaDeMensajeria.contratarEmpleado(chuckNorris)
+        empresaDeMensajeria.echarUnEmpleado(neo)
+
+        assert.equals([chuckNorris], empresaDeMensajeria.listaDeMensajeros())
+    }
+
+    test "contratar a los mismos pero ahora despedirlos a todos"{
+
+        empresaDeMensajeria.contratarEmpleado(neo)
+        empresaDeMensajeria.contratarEmpleado(chuckNorris)
+        empresaDeMensajeria.echarATodosLosEmpleados()
+
+        assert.equals([], empresaDeMensajeria.listaDeMensajeros())
+    }
+
+    test "contratar a 3 empleados, por lo que la empresa es grande"{
+
+        empresaDeMensajeria.contratarEmpleado(neo)
+        empresaDeMensajeria.contratarEmpleado(chuckNorris)
+        empresaDeMensajeria.contratarEmpleado(roberto)
+
+        assert.that(empresaDeMensajeria.esGrande())
+    }
+
+    test "el paquete pago puede ser entregado en la matrix por el primer empleado de la la empresa de mensajería," {
+      
+      empresaDeMensajeria.contratarEmpleado(chuckNorris)
+      empresaDeMensajeria.contratarEmpleado(neo)
+      paquete.pagarPaquete()
+      empresaDeMensajeria.listaDeMensajeros().first().destino(matrix)
+
+      assert.that(empresaDeMensajeria.puedeEntregarPrimerMensajeroUnPaquete(paquete))
+    }
+
+    test "el peso del ultimmo empleado es 90 porque es roberto y va en bicicleta"{
+
+        empresaDeMensajeria.contratarEmpleado(chuckNorris)
+        empresaDeMensajeria.contratarEmpleado(neo)
+        empresaDeMensajeria.contratarEmpleado(roberto)
+        empresaDeMensajeria.listaDeMensajeros().last().vehiculo(bicicleta)
+
+        assert.equals(90, empresaDeMensajeria.saberPesoUltimoMensajero())
+    }
+
+
+    }
