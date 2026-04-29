@@ -2,17 +2,9 @@ import mensajeros.*
 
 object brooklyn {
 
-    var mensajero = neo
+    method dejaPasar(unMensajero) {
 
-    method mensajero(nuevoMensajero){
-
-        mensajero = nuevoMensajero
-
-    }
-
-    method dejaPasar() {
-
-        return mensajero.pesoTotal( ) <= 1000
+        return unMensajero.pesoTotal( ) <= 1000
 
     }
 
@@ -20,17 +12,9 @@ object brooklyn {
 
 object matrix {
 
-    var mensajero = neo
+    method dejaPasar(unMensajero) {
 
-    method mensajero(nuevoMensajero){
-
-        mensajero = nuevoMensajero
-
-    }
-
-    method dejaPasar() {
-
-        return mensajero.puedeLlamar()
+        return unMensajero.puedeLlamar()
     }
 
 }

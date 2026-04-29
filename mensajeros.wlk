@@ -21,7 +21,7 @@ object roberto {
 
     method puedeEntregar(){
 
-        return destino.dejaPasar()
+        return destino.dejaPasar(self)
 
     }
 
@@ -53,7 +53,7 @@ object chuckNorris {
 
     method puedeEntregar(){
 
-        return destino.dejaPasar()
+        return destino.dejaPasar(self)
 
     }
 
@@ -90,7 +90,7 @@ object neo {
 
     method puedeEntregar(){
 
-        return destino.dejaPasar()
+        return destino.dejaPasar(self)
 
     }
 
