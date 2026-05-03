@@ -98,3 +98,34 @@ object neo {
         return puedeLlamar
     }
 }
+
+
+object spiderman {
+
+    var destino = brooklyn
+
+    method destino(nuevoDestino){
+        
+        destino = nuevoDestino
+    }
+
+    method puedeEntregar(){
+        return destino.dejaPasar(self)
+    }
+
+    method puedeEnviar(unPaquete){
+        return unPaquete.puedeSerEntregado()
+    }
+
+    method pesoPropio(){
+        return 0
+    }
+
+    method pesoTotal(){
+        return 0
+    }
+
+    method puedeLlamar(){
+        return true
+    }
+}

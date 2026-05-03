@@ -1,0 +1,112 @@
+import empresa.*
+import mensajeros.*
+import paquetes.*
+import destinos.*
+import vehiculos.*
+
+describe "tests empresa de mensajería" {
+
+  test "puede entregar un paquete si algún mensajero puede, como está pago y chuck puede entregar todo, entonces puede" {
+
+    empresaDeMensajeria.contratarEmpleado(neo)
+    empresaDeMensajeria.contratarEmpleado(chuckNorris)
+    empresaDeMensajeria.contratarEmpleado(roberto)
+    paquete.pagarPaquete()
+
+    assert.that(empresaDeMensajeria.puedeEntregar(paquete))
+  }
+
+
+  test "obtiene los mensajeros que pueden llevar un paquete pago a brooklyn, en este caso todos" {
+
+    empresaDeMensajeria.contratarEmpleado(neo)
+    empresaDeMensajeria.contratarEmpleado(chuckNorris)
+    empresaDeMensajeria.contratarEmpleado(roberto)
+    paquete.pagarPaquete()
+    empresaDeMensajeria.listaDeMensajeros().forEach({m => m.destino(brooklyn)})
+    
+
+    assert.equals([neo,chuckNorris, roberto], empresaDeMensajeria.mensajerosPuedenLlevar(paquete))
+  }
+
+
+  test "mensajería tiene sobrepeso si el promedio supera 500kg, en este caso lo tiene" {
+
+    empresaDeMensajeria.contratarEmpleado(roberto)
+    empresaDeMensajeria.contratarEmpleado(roberto)
+    empresaDeMensajeria.contratarEmpleado(roberto)
+    roberto.vehiculo(camion)
+    camion.acoplados(4)
+    paquete.pagarPaquete()
+    empresaDeMensajeria.listaDeMensajeros().sum({m => m.pesoTotal()})
+
+    assert.that(empresaDeMensajeria.mensajeriaTieneSobrepeso())
+
+  }
+
+
+  test "envía un paquete pago si es posible a brooklyn, como es posible el conjunto de paquetes enviados tiene que tener el paquete" {
+    
+    empresaDeMensajeria.contratarEmpleado(neo)
+    empresaDeMensajeria.contratarEmpleado(chuckNorris)
+    empresaDeMensajeria.contratarEmpleado(roberto)
+    paquete.pagarPaquete()
+    empresaDeMensajeria.listaDeMensajeros().forEach({m => m.destino(brooklyn)})
+    empresaDeMensajeria.enviarUnPaquete(paquete)
+
+    assert.equals(#{paquete}, empresaDeMensajeria.paquetesEnviados())
+  }
+
+
+  test "si no puede enviarse, queda en pendientes" {
+
+    empresaDeMensajeria.contratarEmpleado(neo)
+    empresaDeMensajeria.contratarEmpleado(chuckNorris)
+    empresaDeMensajeria.contratarEmpleado(roberto)
+    paquete.rechazarPago()
+    empresaDeMensajeria.listaDeMensajeros().forEach({m => m.destino(brooklyn)})
+    empresaDeMensajeria.enviarUnPaquete(paquete)
+
+    assert.equals(#{paquete}, empresaDeMensajeria.paquetesPendientes())
+  }
+
+
+  test "facturación suma el valor de los paquetes enviados, es un paquete y un paquete viajero con 2 destinos" {
+
+    empresaDeMensajeria.contratarEmpleado(neo)
+    empresaDeMensajeria.contratarEmpleado(chuckNorris)
+    empresaDeMensajeria.contratarEmpleado(roberto)
+    paquete.pagarPaquete()
+    empresaDeMensajeria.listaDeMensajeros().forEach({m => m.destino(brooklyn)})
+    paqueteViajero.agregarDestino(brooklyn)
+    paqueteViajero.agregarDestino(matrix)
+    paqueteViajero.mensajero(chuckNorris)
+    paqueteViajero.pagar(200)
+    empresaDeMensajeria.enviarUnPaquete(paquete)
+    empresaDeMensajeria.enviarUnPaquete(paqueteViajero)
+
+    assert.equals(250, empresaDeMensajeria.facturar())
+  }
+
+
+  test "envía el paquete pendiente más caro, los mismos que antes, osea envía al viajero" {
+
+    empresaDeMensajeria.contratarEmpleado(neo)
+    empresaDeMensajeria.contratarEmpleado(chuckNorris)
+    empresaDeMensajeria.contratarEmpleado(roberto)
+    paquete.pagarPaquete()
+    empresaDeMensajeria.listaDeMensajeros().forEach({m => m.destino(brooklyn)})
+    paqueteViajero.agregarDestino(brooklyn)
+    paqueteViajero.agregarDestino(matrix)
+    paqueteViajero.mensajero(chuckNorris)
+    paqueteViajero.pagar(200)
+    empresaDeMensajeria.agregarPaquetePendiente(paquete)
+    empresaDeMensajeria.agregarPaquetePendiente(paqueteViajero)
+    empresaDeMensajeria.enviarPaquetePendienteMasCaro()
+
+    assert.equals(#{paqueteViajero}, empresaDeMensajeria.paquetesEnviados()))
+  }
+
+    
+
+}

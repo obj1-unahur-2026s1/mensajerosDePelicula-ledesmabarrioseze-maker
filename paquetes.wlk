@@ -91,3 +91,32 @@ object paqueteViajero  {
     }
 }
 
+object paquetePremium {
+
+    var estaPago = false
+    var mensajero = spiderman
+
+    method precio(){
+        return 150
+    }
+
+    method estaPago(){
+        return estaPago
+    }
+
+    method mensajero(nuevoMensajero){
+        mensajero = nuevoMensajero
+    }
+
+    method puedeSerEntregado(){
+        return true
+    }
+
+    method pagarPaquete(){
+        estaPago = true
+    }
+
+    method rechazarPago(){
+        estaPago = false
+    }
+}
