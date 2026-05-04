@@ -4,39 +4,31 @@ import paquetes.*
 import vehiculos.*
 
 describe "tests parte 1" {
+
   test "Roberto (90kg) puede llevar un paquete que está pago en un camión que tiene un acoplado a Brooklyn" {
 
     roberto.pesoPropio(90)
-    roberto.destino(brooklyn)
     paquete.pagarPaquete()
     roberto.vehiculo(camion)
     camion.acoplados(1)
-  
-  assert.that(roberto.puedeEntregar())
-    
+
+    assert.that(roberto.puedeEnviar(paquete, brooklyn))
   }
 
-  test "Neo con crédito puede llevar un paquete que no está pago a la matrix" {
+  test "Neo con crédito no puede llevar un paquete que no está pago a la matrix" {
 
-    
-    neo.destino(matrix)
     neo.cargarCredito()
     paquete.rechazarPago()
 
-  assert.that(neo.puedeEntregar())
-    
+    assert.notThat(neo.puedeEnviar(paquete, matrix))
   }
 
   test "Neo sin crédito no puede llevar un paquete que no está pago a la matrix" {
 
-    
-    neo.destino(matrix)
     neo.descargarCredito()
     paquete.rechazarPago()
 
-  assert.notThat(neo.puedeEntregar())
-    
+    assert.notThat(neo.puedeEnviar(paquete, matrix))
   }
-
 
 }

@@ -1,26 +1,18 @@
 import vehiculos.*
 import destinos.*
+import paquetes.*
 
 object roberto {
 
     var property pesoPropio = 90
-    var destino = brooklyn
     var vehiculo = camion
-
-    method destino(nuevoDestino) {
-        destino = nuevoDestino
-    }
 
     method vehiculo(nuevoVehiculo) {
         vehiculo = nuevoVehiculo
     }
 
-    method puedeEntregar(){
-        return destino.dejaPasar(self)
-    }
-
-    method puedeEnviar(unPaquete){
-        return unPaquete.puedeSerEntregado()
+    method puedeEnviar(unPaquete, unDestino){
+        return unPaquete.puedeSerEntregado(self, unDestino)
     }
 
     method pesoTotal(){
@@ -32,20 +24,11 @@ object roberto {
     }
 }
 
+
 object chuckNorris {
 
-    var destino = brooklyn
-
-    method destino(nuevoDestino){
-        destino = nuevoDestino
-    }
-
-    method puedeEntregar(){
-        return destino.dejaPasar(self)
-    }
-
-    method puedeEnviar(unPaquete){
-        return unPaquete.puedeSerEntregado()
+    method puedeEnviar(unPaquete, unDestino){
+        return unPaquete.puedeSerEntregado(self, unDestino)
     }
 
     method pesoPropio(){
@@ -61,21 +44,13 @@ object chuckNorris {
     }
 }
 
+
 object neo {
 
     var puedeLlamar = true
-    var destino = matrix
 
-    method destino(nuevoDestino){
-        destino = nuevoDestino
-    }
-
-    method puedeEntregar(){
-        return destino.dejaPasar(self)
-    }
-
-    method puedeEnviar(unPaquete){
-        return unPaquete.puedeSerEntregado()
+    method puedeEnviar(unPaquete, unDestino){
+        return unPaquete.puedeSerEntregado(self, unDestino)
     }
 
     method pesoPropio(){
@@ -102,19 +77,8 @@ object neo {
 
 object spiderman {
 
-    var destino = brooklyn
-
-    method destino(nuevoDestino){
-        
-        destino = nuevoDestino
-    }
-
-    method puedeEntregar(){
-        return destino.dejaPasar(self)
-    }
-
-    method puedeEnviar(unPaquete){
-        return unPaquete.puedeSerEntregado()
+    method puedeEnviar(unPaquete, unDestino){
+        return unPaquete.puedeSerEntregado(self, unDestino)
     }
 
     method pesoPropio(){

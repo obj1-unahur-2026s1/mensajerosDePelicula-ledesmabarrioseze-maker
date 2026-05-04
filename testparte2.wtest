@@ -4,21 +4,19 @@ import mensajeros.*
 import paquetes.*
 import destinos.*
 
+describe "tests parte 2" {
 
+    test "contratar a Neo" {
 
-
-
-describe "tests parte 2"{
-
-    test "contratar a Neo"{
-
+        empresaDeMensajeria.echarATodosLosEmpleados()
         empresaDeMensajeria.contratarEmpleado(neo)
 
         assert.equals([neo], empresaDeMensajeria.listaDeMensajeros())
     }
 
-    test "contratar a neo y chuck. Luego despedir a Neo, me tiene que quedar solo chuck"{
+    test "contratar a neo y chuck. Luego despedir a Neo, me tiene que quedar solo chuck" {
 
+        empresaDeMensajeria.echarATodosLosEmpleados()
         empresaDeMensajeria.contratarEmpleado(neo)
         empresaDeMensajeria.contratarEmpleado(chuckNorris)
         empresaDeMensajeria.echarUnEmpleado(neo)
@@ -26,8 +24,9 @@ describe "tests parte 2"{
         assert.equals([chuckNorris], empresaDeMensajeria.listaDeMensajeros())
     }
 
-    test "contratar a los mismos pero ahora despedirlos a todos"{
+    test "contratar a los mismos pero ahora despedirlos a todos" {
 
+        empresaDeMensajeria.echarATodosLosEmpleados()
         empresaDeMensajeria.contratarEmpleado(neo)
         empresaDeMensajeria.contratarEmpleado(chuckNorris)
         empresaDeMensajeria.echarATodosLosEmpleados()
@@ -35,8 +34,9 @@ describe "tests parte 2"{
         assert.equals([], empresaDeMensajeria.listaDeMensajeros())
     }
 
-    test "contratar a 3 empleados, por lo que la empresa es grande"{
+    test "contratar a 3 empleados, por lo que la empresa es grande" {
 
+        empresaDeMensajeria.echarATodosLosEmpleados()
         empresaDeMensajeria.contratarEmpleado(neo)
         empresaDeMensajeria.contratarEmpleado(chuckNorris)
         empresaDeMensajeria.contratarEmpleado(roberto)
@@ -44,25 +44,26 @@ describe "tests parte 2"{
         assert.that(empresaDeMensajeria.esGrande())
     }
 
-    test "el paquete pago puede ser entregado en la matrix por el primer empleado de la la empresa de mensajería," {
+    test "el paquete pago puede ser entregado en la matrix por el primer empleado de la empresa" {
       
+      empresaDeMensajeria.echarATodosLosEmpleados()
       empresaDeMensajeria.contratarEmpleado(chuckNorris)
       empresaDeMensajeria.contratarEmpleado(neo)
       paquete.pagarPaquete()
-      empresaDeMensajeria.listaDeMensajeros().first().destino(matrix)
 
-      assert.that(empresaDeMensajeria.puedeEntregarPrimerMensajeroUnPaquete(paquete))
+      assert.that(empresaDeMensajeria.puedeEntregarPrimerMensajeroUnPaquete(paquete, matrix))
     }
 
-    test "el peso del ultimmo empleado es 90 porque es roberto y va en bicicleta"{
+    test "el peso del ultimo empleado es 95 porque es roberto y va en bicicleta" {
 
+        empresaDeMensajeria.echarATodosLosEmpleados()
         empresaDeMensajeria.contratarEmpleado(chuckNorris)
         empresaDeMensajeria.contratarEmpleado(neo)
         empresaDeMensajeria.contratarEmpleado(roberto)
-        empresaDeMensajeria.listaDeMensajeros().last().vehiculo(bicicleta)
 
-        assert.equals(90, empresaDeMensajeria.saberPesoUltimoMensajero())
+        roberto.vehiculo(bicicleta)
+
+        assert.equals(95, empresaDeMensajeria.saberPesoUltimoMensajero())
     }
 
-
-    }
+}
